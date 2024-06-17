@@ -1,0 +1,8 @@
+.form{
+    width:700px;
+    background-image: linear-gradient(to top, #5f72bd 0%, #9b23ea 100%);
+}
+.button-1{
+    background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+    /*background-image: linear-gradient(-20deg, #6e45e2 0%, #88d3ce 100%);*/
+}
