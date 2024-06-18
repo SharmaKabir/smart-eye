@@ -1,0 +1,12 @@
+/* src/components/FaceRecognition/FaceRecognition.css */
+/* src/components/FaceRecognition/FaceRecognition.css */
+.bounding-box {
+    position: absolute;
+    border: 2px solid #149df2;
+    box-shadow: 0 0 0 3px #149df2 inset;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    pointer-events: none; /* Ensure bounding boxes don't interfere with clicking */
+  }
+  
