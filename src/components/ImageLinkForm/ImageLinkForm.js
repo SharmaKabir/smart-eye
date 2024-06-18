@@ -5,7 +5,7 @@ const ImageLinkForm=({ onInputChange , onButtonSubmit})=>{
     return(
 <div>
     <p className='f3'>
-        {'This smart eye will detect faces in your pictures. Give it a try.'}
+        {' Smart Eye will detect human faces in your pictures. Insert a link to start.'}
     </p>
     <div className='center'>
         <div className=' form center pa4 br3 shadow-5'>

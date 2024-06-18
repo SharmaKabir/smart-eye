@@ -5,6 +5,7 @@ import "./App.css";
 import Rank from "./components/Rank/Rank";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
+import Signin from "./components/Signin/Signin";
 //import Clarifai=require('clarifai');
 // import Particles from './components/Particles/Particles';
 
@@ -168,11 +169,13 @@ onButtonSubmit = () => {
         {/* <Particles className='particles'/>  */}
 
         <Navigation />
+        <Signin/>
         <Logo />
         <Rank />
 
         <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} />
         <FaceRecognition imageUrl={this.state.imageUrl} faces={this.state.faces}/>
+
       </div>
     );
   }
