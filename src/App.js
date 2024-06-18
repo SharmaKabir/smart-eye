@@ -4,6 +4,8 @@ import Logo from "./components/Logo/Logo";
 import "./App.css";
 import Rank from "./components/Rank/Rank";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
+import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
+//import Clarifai=require('clarifai');
 // import Particles from './components/Particles/Particles';
 
 // function App() {
@@ -21,15 +23,17 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      input: "",
+      input: '',
+      imageUrl:'',
     };
   }
   onInputChange = (event) => {
-    console.log(event.target.value);
+
+    this.setState({input:event.target.value});
   };
 
   onButtonSubmit = () => {
-
+this.setState({imageUrl: this.state.input})
     //help me => user_id can be found in multiple ways, one way is in https://portal.clarifai.com/settings/profile 
     const USER_ID = "kabira";
   
@@ -105,7 +109,7 @@ class App extends Component {
         <Rank />
 
         <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} />
-        {/* <FaceRecognition/> */}
+        <FaceRecognition imageUrl={this.state.imageUrl}/>
       </div>
     );
   }
