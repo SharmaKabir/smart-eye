@@ -163,15 +163,17 @@ onButtonSubmit = () => {
   });
 };
 
-
+onRouteChange=(route)=>{
+  this.setState({route});
+}
   render() {
     return (
       <div className="App">
         {/* <Particles className='particles'/>  */}
 
-        <Navigation />
+        <Navigation onRouteChange={this.onRouteChange}/>
         { this.state.route==='signin' 
-        ?<Signin/>
+        ?<Signin onRouteChange={this.onRouteChange}/>
         : <div>
           <Logo />
         <Rank />
