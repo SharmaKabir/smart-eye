@@ -26,6 +26,7 @@ class App extends Component {
     this.state = {
       input: '',
       imageUrl:'',
+      route:'signin'
     };
   }
   onInputChange = (event) => {
@@ -169,13 +170,16 @@ onButtonSubmit = () => {
         {/* <Particles className='particles'/>  */}
 
         <Navigation />
-        <Signin/>
-        <Logo />
+        { this.state.route==='signin' 
+        ?<Signin/>
+        : <div>
+          <Logo />
         <Rank />
 
         <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} />
         <FaceRecognition imageUrl={this.state.imageUrl} faces={this.state.faces}/>
-
+        </div>
+        }
       </div>
     );
   }
