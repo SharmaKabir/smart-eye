@@ -7,20 +7,8 @@ import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
-//import Clarifai=require('clarifai');
-// import Particles from './components/Particles/Particles';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <Navigation/>
-//       {/* <Logo/>
-//       <ImageLinkForm/>
-//       <FaceRecognition/> */}
-
-//     </div>
-//   );
-// }
 class App extends Component {
   constructor() {
     super();
@@ -28,9 +16,34 @@ class App extends Component {
       input: '',
       imageUrl:'',
       route:'signin',
-      isSignedIn: false
+      isSignedIn: false,
+      user: {
+        email:'',
+        id: '',
+        name: '',
+        entries: 0,
+        joined: ''
+      }
     };
   }
+
+  loadUser = (data) => {
+    this.setState({user: {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      entries: data.entries,
+      joined: data.joined
+    }})
+  }
+
+  // componentDidMount() {
+  //   fetch('http://localhost:3001')
+  //     .then(response => response.json())
+  //     .then(data => console.log(data))
+  //     .catch(error => console.error('Error fetching data:', error));
+  // }
+  
   onInputChange = (event) => {
 
     this.setState({input:event.target.value});
@@ -158,13 +171,29 @@ onButtonSubmit = () => {
           });
           console.log("Detected Faces:", faces);
     this.setState({ faces });
+
           this.setState({ faces });
+          this.updateEntryCount();
+          //this.setState(Object.assign(this.state.user, { entries: this.state.user.entries + 1 }));
         }
       })
       .catch((error) => console.log("error", error));
   });
 };
-
+updateEntryCount = () => {
+  fetch('http://localhost:3001/image', {
+    method: 'put',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      id: this.state.user.id
+    })
+  })
+  .then(response => response.json())
+  .then(count => {
+    this.setState(Object.assign(this.state.user, { entries: count.entries }))
+  })
+  .catch(console.log);
+}
 onRouteChange=(route)=>{
   if(route==='signout'){
     this.setState({isSignedIn:false})
@@ -181,19 +210,21 @@ onRouteChange=(route)=>{
         {/* <Particles className='particles'/>  */}
 
         <Navigation isSignedIn={this.state.isSignedIn}   onRouteChange={this.onRouteChange}/>
+        <ErrorBoundary>
         { this.state.route==='home' 
         ?<div>
         <Logo />
-      <Rank />
+        <Rank name={this.state.user.name} entries={this.state.user.entries} />
 
       <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} />
       <FaceRecognition imageUrl={this.state.imageUrl} faces={this.state.faces}/>
       </div>
         
         :(
-          this.state.route==='signin' ? <Signin onRouteChange={this.onRouteChange}/> : <Register onRouteChange={this.onRouteChange}/>
+          this.state.route==='signin' ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/> : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
         ) 
         }
+        </ErrorBoundary>
       </div>
     );
   }
