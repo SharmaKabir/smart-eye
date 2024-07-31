@@ -181,7 +181,7 @@ onButtonSubmit = () => {
   });
 };
 updateEntryCount = () => {
-  fetch('http://localhost:3001/image', {
+  fetch('http://smart-eye-api-production.up.railway.app/image', {
     method: 'put',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
